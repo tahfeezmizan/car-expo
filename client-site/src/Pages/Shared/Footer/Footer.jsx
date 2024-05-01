@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+import logo from '../../../assets/logo.svg'
 
 const Footer = () => {
     return (
@@ -6,10 +8,11 @@ const Footer = () => {
                 <div className="text-black grid grid-cols-2 xl:grid-cols-12 gap-28">
                     {/* Logo and Description */}
                     <div className="col-span-2 lg:col-span-4 xl:col-span-5 text-center xl:text-start">
-                        <a href="#" className="text-3xl text-black font-extrabold cursor-pointer">Car Expo</a>
-                        <p className="font-medium text-gray-800 w-full lg:w-3/5 lg:mx-auto xl:mx-0 leading-7 text-base my-7">
-                            Gear up for victory with our a curated selection of top-notch equipment and apparel
-                        </p>
+                        <Link className="btn btn-ghost text-xl uppercase Sitelogo">
+                            <img src={logo} className="w-20 h-auto" alt="" />
+                            {/* <h2 className="text-3xl">Car Expo</h2> */}
+                        </Link>
+                        <p className="font-medium text-gray-800 w-full lg:w-3/5 lg:mx-auto xl:mx-0 leading-7 text-base my-7">Edwin Diaz is a software and web technologies engineer, a life coach trainer who is also a serial . </p>
 
                         {/* Contact Info */}
                         <div className="flex flex-col justify-center xl:justify-start items-center xl:items-start gap-4">

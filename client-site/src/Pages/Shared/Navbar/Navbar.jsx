@@ -1,4 +1,5 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
+import logo from '../../../assets/logo.svg'
 
 const Navbar = () => {
     const links = <>
@@ -17,10 +18,10 @@ const Navbar = () => {
                             {links}
                         </ul>
                     </div>
-                    <NavLink className="btn btn-ghost text-xl uppercase Sitelogo">
-                        {/* <img src={sitelogo} className="w-28" alt="" /> */}
-                        <h2 className="text-3xl">Car Expo</h2>
-                    </NavLink>
+                    <Link className="btn btn-ghost text-xl uppercase Sitelogo">
+                        <img src={logo} className="w-20 h-auto" alt="" />
+                        {/* <h2 className="text-3xl">Car Expo</h2> */}
+                    </Link>
                 </div>
                 <div data-aos="fade-down" data-aos-duration="1300" className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal px-1 gap-5 felx">
