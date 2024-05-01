@@ -1,50 +1,65 @@
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
-import slider1 from '../../assets/images/1.jpg'
+import slider1 from '../../assets/images/banner/1.jpg'
+import slider2 from '../../assets/images/banner/2.jpg'
+import slider3 from '../../assets/images/banner/3.jpg'
+import slider4 from '../../assets/images/banner/4.jpg'
 import { SwiperSlide, Swiper } from "swiper/react";
-import { Autoplay, Pagination, Navigation } from 'swiper/modules';
+import { Parallax, Pagination, Navigation } from 'swiper/modules';
 
 const Slider = () => {
     return (
         <>
             <Swiper
-                spaceBetween={30}
-                centeredSlides={true}
-                autoplay={{
-                    delay: 2500,
-                    disableOnInteraction: false,
+                style={{
+                    '--swiper-navigation-color': '#fff',
+                    '--swiper-pagination-color': '#fff',
                 }}
+                speed={600}
+                Parallax={true}
                 pagination={{
                     clickable: true,
                 }}
                 navigation={true}
-                modules={[Autoplay, Pagination, Navigation]}
-                className="mySwiper"
+                modules={[Parallax, Pagination, Navigation]}
+                className="mySwiper homeBanner"
             >
                 <SwiperSlide >
-                    <div className="w-full md:w-8/12 mx-auto text-center" style={{
-                        backgroundImage: `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(${slider1})`,
+                    <div className='w-full md:w-8/12 mx-auto min-h-screen rounded-3xl p-10 py-28' style={{
+                        background: `linear-gradient(90.00deg, rgb(21, 21, 21),rgba(21, 21, 21, 0) 100%), url(${slider1})`,
                         backgroundPosition: 'center',
                         backgroundSize: 'cover',
                         backgroundRepeat: 'no-repeat',
-
-                    }}>
-                        <h4 className='font-bold text-white text-base md:text-xl mb-2'>Experience the Unseen!</h4>
-                        <h1 className='text-white text-3xl md:text-6xl xl:text-8xl px-10 xl:px-28 pb-5 md:pb-10  font-bold '>Uncovering Stories, One Trip At A Time</h1>
-                        <p></p>
-                        <button data-aos="fade-up" data-aos-duration="1600" className='btn border-none text-white  bg-[#d01818] hover:bg-[#0d1637] px-10 text-xl'>Get Start</button>
+                                            }}>
+                        <div className="w-1/2 pr-36">
+                            <h1 className='text-white text-3xl md:text-6xl pb-5 md:pb-8  font-bold '>Affordable Price For Car Servicing</h1>
+                            <p className='text-white pb-8 text-lg'>There are many variations of passages of  available, but the majority have suffered alteration in some form</p>
+                            <div className="flex gap-3 items-center">
+                                <button className='btn border-none bg-red-500 text-white px-10 text-xl'>Discover More</button>
+                                <button className='btn btn-outline text-white px-10 text-xl'>Discover More</button>
+                            </div>
+                        </div>
                     </div>
                 </SwiperSlide>
-                <SwiperSlide>Slide 2</SwiperSlide>
-                <SwiperSlide>Slide 3</SwiperSlide>
-                <SwiperSlide>Slide 4</SwiperSlide>
-                <SwiperSlide>Slide 5</SwiperSlide>
-                <SwiperSlide>Slide 6</SwiperSlide>
-                <SwiperSlide>Slide 7</SwiperSlide>
-                <SwiperSlide>Slide 8</SwiperSlide>
-                <SwiperSlide>Slide 9</SwiperSlide>
-            </Swiper>
+                <SwiperSlide >
+                    <div className='w-full md:w-8/12 mx-auto min-h-screen rounded-3xl p-10 py-28' style={{
+                        background: `linear-gradient(90.00deg, rgb(21, 21, 21),rgba(21, 21, 21, 0) 100%), url(${slider2})`,
+                        backgroundPosition: 'center',
+                        backgroundSize: 'cover',
+                        backgroundRepeat: 'no-repeat',
+                                            }}>
+                        <div className="w-1/2 pr-36">
+                            <h1 className='text-white text-3xl md:text-6xl pb-5 md:pb-8  font-bold '>Affordable Price For Car Servicing</h1>
+                            <p className='text-white pb-8 text-lg'>There are many variations of passages of  available, but the majority have suffered alteration in some form</p>
+                            <div className="flex gap-3 items-center">
+                                <button className='btn border-none bg-red-500 text-white px-10 text-xl'>Discover More</button>
+                                <button className='btn btn-outline text-white px-10 text-xl'>Discover More</button>
+                            </div>
+                        </div>
+                    </div>
+                </SwiperSlide>
+            </Swiper >
         </>
     );
 };
