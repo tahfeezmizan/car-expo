@@ -4,7 +4,7 @@ import parts from '../../../assets/images/about_us/parts.jpg'
 
 const About = () => {
     return (
-        <div className="w-full md:w-8/12 mx-auto min-h-screen rounded-3xl py-28">
+        <div className="w-full md:w-8/12 mx-auto min-h-screen rounded-3xl py-14">
             <div className="flex flex-col md:flex-row justify-between items-center gap-64 md:gap-12">
                 <div className="flex-1 relative">
                 <img src={person} className='w-3/4 h-4/5 rounded-lg' alt="" />

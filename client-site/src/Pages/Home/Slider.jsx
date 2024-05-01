@@ -26,7 +26,7 @@ const Slider = () => {
                 className="mySwiper homeBanner"
             >
                 <SwiperSlide >
-                    <div className='w-full md:w-8/12 mx-auto min-h-screen rounded-3xl p-10 py-28' style={{
+                    <div className='w-full md:w-8/12 mx-auto min-h-screen rounded-3xl p-10 py-14' style={{
                         background: `linear-gradient(90.00deg, rgb(21, 21, 21),rgba(21, 21, 21, 0) 100%), url(${slider1})`,
                         backgroundPosition: 'center',
                         backgroundSize: 'cover',
@@ -43,7 +43,7 @@ const Slider = () => {
                     </div>
                 </SwiperSlide>
                 <SwiperSlide >
-                    <div className='w-full md:w-8/12 mx-auto min-h-screen rounded-3xl p-10 py-28' style={{
+                    <div className='w-full md:w-8/12 mx-auto min-h-screen rounded-3xl p-10 py-14' style={{
                         background: `linear-gradient(90.00deg, rgb(21, 21, 21),rgba(21, 21, 21, 0) 100%), url(${slider2})`,
                         backgroundPosition: 'center',
                         backgroundSize: 'cover',

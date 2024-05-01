@@ -1,4 +1,5 @@
 import About from "./About/About";
+import Services from "./Services/Services";
 import Slider from "./Slider";
 
 const Home = () => {
@@ -6,6 +7,7 @@ const Home = () => {
         <div>
             <Slider></Slider>
             <About></About>
+            <Services></Services>
         </div>
     );
 };
