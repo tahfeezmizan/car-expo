@@ -4,3 +4,4 @@ vercel
 dist
 dist-ssr
 *.local
+.vercel
