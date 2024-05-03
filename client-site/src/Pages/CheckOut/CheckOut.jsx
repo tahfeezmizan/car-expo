@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 
 const CheckOut = () => {
     const [data, setData] = useState([]);
-    const id = useParams();
+    const {id} = useParams();
     console.log(id);
 
     useEffect(() => {
@@ -11,12 +11,14 @@ const CheckOut = () => {
         .then(res => res.json())
         .then(result => {
             console.log(result)
+            setData(result);
         })
-    }, [])
+    }, [id])
 
     return (
         <div>
             <h1 className="text-5xl">Check Out Page</h1>
+            <h1 className="text-5xl">Product Item {data?.title}</h1>
         </div>
     );
 };
