@@ -5,7 +5,8 @@ import UseAuth from "../../../Hook/UseAuth";
 import logo from '../../../assets/logo.svg';
 
 const Navbar = () => {
-    const { user } = UseAuth();
+    const { user, singOut } = UseAuth();
+    const profileAvater = 'https://www.svgrepo.com/show/384674/account-avatar-profile-user-11.svg'
     const links = <>
         <li><NavLink to='/'>Home</NavLink></li>
     </>
@@ -38,7 +39,7 @@ const Navbar = () => {
                             <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
                                 <div className="w-10 rounded-full">
                                     <img
-                                        alt="Tailwind CSS Navbar component" />
+                                        alt="Tailwind CSS Navbar component" src={user?.photoURL || profileAvater} />
                                 </div>
                             </div>
                             <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-50 p-4 shadow bg-base-100 rounded-box w-52">
@@ -49,7 +50,7 @@ const Navbar = () => {
                                     <Link to="/profile" className="profileLink text-xl mb-3 flex items-center hover:bg-blue-300"><span className=""><TbUserEdit /></span>Profile</Link>
                                 </li>
                                 <li>
-                                    <button className="logout text-xl mb-3 flex items-center"><span className=""><CiLogout /></span> LogOut</button>
+                                    <button onClick={singOut} className="logout text-xl mb-3 flex items-center"><span className=""><CiLogout /></span> LogOut</button>
                                 </li>
                             </ul>
                         </div> :
