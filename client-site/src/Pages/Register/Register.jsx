@@ -1,11 +1,20 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import registerImg from '../../assets/images/login/login.svg'
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import registerImg from '../../assets/images/login/login.svg';
+import UseAuth from "../../Hook/UseAuth";
+
+// userProfileUpdate(name, photoURL)
+//                     .then(() => {
+//                         logOut()
+//                         toast.success('User Register Sucessfully')
+//                         navigate('/login')
+//                     })
 
 const Register = () => {
-    // const { createUser, userProfileUpdate, logOut } = UseAuth();
+    const {createUser} = UseAuth();
     const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
 
@@ -16,18 +25,13 @@ const Register = () => {
     } = useForm();
 
     const onSubmit = (data) => {
-        const { email, password, name, photoURL } = data;
+        const { name, email, password, } = data;
         console.log(data)
 
         createUser(email, password)
             .then(result => {
-                const registerData = result?.user;
-                userProfileUpdate(name, photoURL)
-                    .then(() => {
-                        logOut()
-                        toast.success('User Register Sucessfully')
-                        navigate('/login')
-                    })
+                const newUser = result?.user;
+                console.log(newUser);
             })
             .catch(error => {
                 const errorMessage = error.message;
