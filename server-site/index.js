@@ -44,7 +44,7 @@ async function run() {
         projection: {title: 1, price: 1, service_id: 1}
       }
 
-      const result = await serviceCollection.findOne(query, options);
+      const result = await serviceCollection.findOne(query,  );
       res.send(result)
     })
 
