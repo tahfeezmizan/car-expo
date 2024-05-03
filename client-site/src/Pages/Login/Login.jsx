@@ -1,10 +1,13 @@
 import { useState } from 'react';
+import { toast } from 'react-toastify';
+import UseAuth from '../../Hook/UseAuth';
 import { useForm } from 'react-hook-form';
 import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa6';
-import loginImg from '../../assets/images/login/login.svg'
+import loginImg from '../../assets/images/login/login.svg';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const Login = () => {
+    const { singIn } = UseAuth();
     const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate()
     const location = useLocation();
@@ -20,7 +23,7 @@ const Login = () => {
 
         console.log(data);
 
-        logInUser(email, password)
+        singIn(email, password)
             .then(result => {
                 const user = result.user;
                 navigate(location?.state ? location.state : '/');

@@ -1,7 +1,11 @@
+import { CiLogout } from "react-icons/ci";
+import { TbUserEdit } from "react-icons/tb";
 import { Link, NavLink } from "react-router-dom";
-import logo from '../../../assets/logo.svg'
+import UseAuth from "../../../Hook/UseAuth";
+import logo from '../../../assets/logo.svg';
 
 const Navbar = () => {
+    const { user } = UseAuth();
     const links = <>
         <li><NavLink to='/'>Home</NavLink></li>
     </>
@@ -29,31 +33,32 @@ const Navbar = () => {
                     </ul>
                 </div>
                 <div className="navbar-end z-[1000]">
-
-                    {/* <div className="dropdown dropdown-end">
-                        <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
-                            <div className="w-10 rounded-full">
-                                <img
-                                    alt="Tailwind CSS Navbar component" />
+                    {user ?
+                        <div className="dropdown dropdown-end">
+                            <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+                                <div className="w-10 rounded-full">
+                                    <img
+                                        alt="Tailwind CSS Navbar component" />
+                                </div>
                             </div>
-                        </div>
-                        <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-50 p-4 shadow bg-base-100 rounded-box w-52">
-                            <li>
-                                <p className="text-lg text-center font-bold capitalize mb-3">
-                                    {user?.displayName || 'Name Not Found'}
-                                </p>
-                                <NavLink to="/profile" className="profileLink text-xl mb-3 flex items-center hover:bg-blue-300"><span className=""><TbUserEdit /></span>Profile</NavLink>
-                            </li>
-                            <li>
-                                <button className="logout text-xl mb-3 flex items-center"><span className=""><CiLogout /></span> LogOut</button>
-                            </li>
-                        </ul>
-                    </div> */}
+                            <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-50 p-4 shadow bg-base-100 rounded-box w-52">
+                                <li>
+                                    <p className="text-lg text-center font-bold capitalize mb-3">
+                                        {user?.displayName || 'Name Not Found'}
+                                    </p>
+                                    <Link to="/profile" className="profileLink text-xl mb-3 flex items-center hover:bg-blue-300"><span className=""><TbUserEdit /></span>Profile</Link>
+                                </li>
+                                <li>
+                                    <button className="logout text-xl mb-3 flex items-center"><span className=""><CiLogout /></span> LogOut</button>
+                                </li>
+                            </ul>
+                        </div> :
 
-                    <div className="flex gap-4">
-                        <NavLink
-                            className="btn btn-outline bg-primaryColor font-semibold text-base" to="/login">Login</NavLink>
-                    </div>
+                        <div className="flex gap-4">
+                            <NavLink
+                                className="btn btn-outline bg-primaryColor font-semibold text-base" to="/login">Login</NavLink>
+                        </div>
+                    }
 
                 </div>
             </div>
