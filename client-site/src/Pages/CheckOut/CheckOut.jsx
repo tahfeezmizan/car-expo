@@ -1,25 +1,87 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import UseAuth from "../../Hook/UseAuth";
 
 const CheckOut = () => {
+    const { user } = UseAuth();
     const [data, setData] = useState([]);
-    const {id} = useParams();
-    console.log(id);
+    const { id } = useParams();
+
 
     useEffect(() => {
         fetch(`http://localhost:5000/services/${id}`)
-        .then(res => res.json())
-        .then(result => {
-            console.log(result)
-            setData(result);
-        })
-    }, [id])
+            .then(res => res.json())
+            .then(result => {
+                setData(result);
+            })
+    }, [id]);
+
+    const { _id, title, service_id, price } = data;
+
+    const handleCheckOut = e => {
+        e.preventDefault();
+        const form = e.target;
+        const name = form.name.value;
+        const contactemail = form.contactemail.value;
+        const date = form.date.value;
+        const description = form.description.value;
+
+        const email = user?.email;
+
+        const order = { _id, title, name, price, contactemail, date, service_id, email, description };
+        console.log(order);
+    }
 
     return (
-        <div>
+        <div className="w-full md:w-8/12 mx-auto">
+
             <h1 className="text-5xl">Check Out Page</h1>
             <h1 className="text-5xl">Product Item {data?.title}</h1>
-        </div>
+
+            <div className="max-w-screen-md mx-auto border rounded-lg p-12 my-10">
+                <form onSubmit={handleCheckOut}>
+                    <div className="flex flex-col md:flex-row gap-0 md:gap-8">
+                        <div className="flex-1 space-y-2 mb-4">
+                            <input
+                                type="text" name="name"
+                                placeholder="Your Name Name"
+                                className="input input-bordered w-full max-w-xs" />
+                        </div>
+                        <div className="flex-1 space-y-2 mb-4">
+                            <input
+                                type="Number" name="price"
+                                placeholder="$"
+                                defaultValue={price}
+                                className="input input-bordered w-full max-w-xs"
+                            />
+                        </div>
+                    </div>
+                    <div className="flex flex-col md:flex-row gap-0 md:gap-8">
+                        <div className="flex-1 space-y-2 mb-4">
+                            <input
+                                type="email" name="contactemail"
+                                placeholder="Contact Email"
+                                className="input input-bordered w-full max-w-xs"
+                            />
+                        </div>
+                        <div className="flex-1 space-y-2 mb-4">
+                            <input
+                                type="date" name="date"
+                                placeholder="date"
+                                className="input input-bordered w-full max-w-xs"
+                            />
+                        </div>
+                    </div>
+                    <div className=" space-y-2 mb-4">
+                        <textarea
+                            name='description'
+                            placeholder="Product Description"
+                            className="textarea textarea-bordered  w-full"></textarea>
+                    </div>
+                    <input type="submit" value="Submit" className="w-full btn bg-[#d01818] hover:bg-[#0d1637] text-white text-xl font-bold" />
+                </form>
+            </div >
+        </div >
     );
 };
 
