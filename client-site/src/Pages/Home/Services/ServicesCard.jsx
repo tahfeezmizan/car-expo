@@ -1,8 +1,9 @@
 import React from 'react';
 import { FaArrowRight } from 'react-icons/fa6';
+import { Link } from 'react-router-dom';
 
 const ServicesCard = ({ data }) => {
-    const { title, img, price } = data;
+    const { _id, title, img, price } = data;
 
     return (
         <div className='p-6 rounded-2xl bg-white'>
@@ -11,8 +12,10 @@ const ServicesCard = ({ data }) => {
             </div>
             <h2 className="text-2xl font-bold pb-6">{title}</h2>
             <div className="flex justify-between items-center text-red-500">
-                <button className='text-xl font-semibold'>Price: ${price}</button>
-                <span className='text-xl'><FaArrowRight /></span>
+                <button className='text-xl font-semibold '>Price: ${price}</button>
+                <span className='text-xl'>
+                    <Link to={`/checkout/${_id}`} className='flex items-center gap-2'>Book Now <FaArrowRight /> </Link>
+                </span>
             </div>
         </div>
     );
