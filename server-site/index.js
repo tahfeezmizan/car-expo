@@ -27,6 +27,7 @@ async function run() {
     await client.connect();
 
     const serviceCollection = client.db("car_expoDB").collection('services');
+    const bookingsCollection = client.db("car_expoDB").collection('bookings');
 
     // get services all data 
     app.get('/services', async (req, res) => {
@@ -52,9 +53,9 @@ async function run() {
         if (!id.match(/^[0-9a-fA-F]{24}$/)) {
           throw new Error('Invalid ObjectId format');
         }
-        const query = {_id: new ObjectId(id)};
+        const query = { _id: new ObjectId(id) };
         const options = {
-          projection: {title: 1, price: 1, service_id: 1}
+          projection: { title: 1, price: 1, service_id: 1, img: 1 }
         }
         const result = await serviceCollection.findOne(query, options);
         if (!result) {
@@ -68,6 +69,12 @@ async function run() {
     });
 
 
+    //bookings 
+    app.post('/bookings', async (req, res) => {
+      const bookings = req.body
+      const result = await serviceCollection.insertOne(bookings);
+      res.send(result)
+    })
 
 
     // Send a ping to confirm a successful connection

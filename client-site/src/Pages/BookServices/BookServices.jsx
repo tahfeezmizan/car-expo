@@ -1,12 +1,11 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import UseAuth from "../../Hook/UseAuth";
+import React, { useEffect, useState } from 'react';
+import UseAuth from '../../Hook/UseAuth';
+import { useParams } from 'react-router-dom';
 
-const CheckOut = () => {
+const BookServices = () => {
     const { user } = UseAuth();
     const [data, setData] = useState([]);
     const { id } = useParams();
-
 
     useEffect(() => {
         fetch(`http://localhost:5000/services/${id}`)
@@ -25,7 +24,6 @@ const CheckOut = () => {
         const contactemail = form.contactemail.value;
         const date = form.date.value;
         const description = form.description.value;
-
         const email = user?.email;
 
         const order = {
@@ -38,17 +36,19 @@ const CheckOut = () => {
             service: title,
             service_price: price,
             service_id: _id,
-
         };
 
-        fetch('bookings', {
+        fetch('http://localhost:5000/bookings', {
             method: "POST",
             headers: { "content-type": "application/json"},
             body: JSON.stringify(order)
         })
         .then(res => res.json())
         .then(data => {
-            console.log(data);
+            if(data?.insertedId) {
+                alert('order conform')
+                form.reset()
+            }
         })
     }
 
@@ -105,4 +105,4 @@ const CheckOut = () => {
     );
 };
 
-export default CheckOut;
+export default BookServices;

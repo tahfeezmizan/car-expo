@@ -14,7 +14,7 @@ const ServicesCard = ({ data }) => {
             <div className="flex justify-between items-center text-red-500">
                 <button className='text-xl font-semibold '>Price: ${price}</button>
                 <span className='text-xl'>
-                    <Link to={`/checkout/${_id}`} className='flex items-center gap-2'>Book Now <FaArrowRight /> </Link>
+                    <Link to={`/bookings/${_id}`} className='flex items-center gap-2'>Book Now <FaArrowRight /> </Link>
                 </span>
             </div>
         </div>
