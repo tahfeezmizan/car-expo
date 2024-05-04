@@ -9,6 +9,10 @@ const Navbar = () => {
     const profileAvater = 'https://www.svgrepo.com/show/384674/account-avatar-profile-user-11.svg'
     const links = <>
         <li><NavLink to='/'>Home</NavLink></li>
+        {user ?
+            <li><NavLink to='/bookings'>My Bookings</NavLink></li>
+            : '/login'
+        }
     </>
 
     return (
