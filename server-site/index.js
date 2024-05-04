@@ -68,11 +68,22 @@ async function run() {
       }
     });
 
+    //bookings
+    app.get('/bookings', async (req, res) => {
+      // const contactemail = req.params.contactemail;
+      console.log(req.query);
+      let query = {};
+      if(req.query?.email){
+        query = {email: req.query.email}
+      }
+      const cursor = bookingsCollection.find();
+      const result = await cursor.toArray();
+      res.send(result)
+    })
 
-    //bookings 
     app.post('/bookings', async (req, res) => {
       const bookings = req.body
-      const result = await serviceCollection.insertOne(bookings);
+      const result = await bookingsCollection.insertOne(bookings);
       res.send(result)
     })
 
