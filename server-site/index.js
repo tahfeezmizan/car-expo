@@ -68,19 +68,18 @@ async function run() {
       }
     });
 
-    //bookings
+    //bookings desplay by email
     app.get('/bookings', async (req, res) => {
-      // const contactemail = req.params.contactemail;
-      console.log(req.query);
       let query = {};
-      if(req.query?.email){
-        query = {email: req.query.email}
+      if (req.query?.email) {
+        query = { email: req.query.email }
       }
-      const cursor = bookingsCollection.find();
+      const cursor = bookingsCollection.find(query);
       const result = await cursor.toArray();
       res.send(result)
     })
 
+    // user booking data store on database
     app.post('/bookings', async (req, res) => {
       const bookings = req.body
       const result = await bookingsCollection.insertOne(bookings);
