@@ -3,16 +3,15 @@ import UseAuth from "../../Hook/UseAuth";
 import { RxCross2 } from "react-icons/rx";
 
 const BookingServices = () => {
-    const [item, setItem] = useState([]);
     const { user } = UseAuth();
+    const [item, setItem] = useState([]);
 
     const url = `http://localhost:5000/bookings?email=${user?.email}`
     useEffect(() => {
         fetch(url)
             .then(res => res.json())
             .then(data => {
-                setItem(data)
-                console.log(data);
+                setItem(data);
             })
     }, []);
 
@@ -23,16 +22,18 @@ const BookingServices = () => {
             console.log(id);
             fetch(`http://localhost:5000/bookings/${id}`, {
                 method: 'DELETE',
-                headers: {"content-type": "application/json"},
-                body: JSON.stringify(id)
             })
-            .then(res => res.json())
-            .then(data => {
-                console.log(data);
-            })
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data);
+                    if (data.deletedCount > 0) {
+                        alert('deleted sucessfully');
+                        const remaning = item.filter(data => data._id !== id);
+                        setItem(remaning);
+                    }
+                })
         }
     }
-
 
     return (
         <div className="w-full md:w-8/12 mx-auto rounded-3xl py-20">
@@ -59,7 +60,7 @@ const BookingServices = () => {
                                     <td>{data.service_price}</td>
                                     <td>{data.date}</td>
                                     <td>
-                                        <button className="btn">pending</button>
+                                        <button className="btn">Pending</button>
                                     </td>
                                 </tr>
                             </tbody>
