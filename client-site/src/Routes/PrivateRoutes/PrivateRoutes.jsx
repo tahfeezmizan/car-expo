@@ -3,11 +3,11 @@ import UseAuth from "../../Hook/UseAuth";
 
 
 const PrivateRoutes = ({ children }) => {
-    const { user, loading } = UseAuth();
+    const { user, isLoading } = UseAuth();
     const location = useLocation();
     // console.log(location.pathname);
 
-    if (loading) {
+    if (isLoading) {
         return <progress className="progress progress-error w-56"></progress>
     }
 

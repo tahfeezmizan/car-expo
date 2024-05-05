@@ -5,7 +5,7 @@ import UseAuth from "../../../Hook/UseAuth";
 import logo from '../../../assets/logo.svg';
 
 const Navbar = () => {
-    const { user, singOut } = UseAuth();
+    const { user, singOutUser } = UseAuth();
     const profileAvater = 'https://www.svgrepo.com/show/384674/account-avatar-profile-user-11.svg'
     const links = <>
         <li><NavLink to='/'>Home</NavLink></li>
@@ -57,7 +57,10 @@ const Navbar = () => {
                                     <Link to="/profile" className="profileLink text-xl mb-3 flex items-center hover:bg-blue-300"><span className=""><TbUserEdit /></span>Profile</Link>
                                 </li>
                                 <li>
-                                    <button onClick={singOut} className="logout text-xl mb-3 flex items-center"><span className=""><CiLogout /></span> LogOut</button>
+                                    <button onClick={() => {
+                                        singOutUser()
+                                    }
+                                    } className="logout text-xl mb-3 flex items-center"><span className=""><CiLogout /></span> LogOut</button>
                                 </li>
                             </ul>
                         </div> :

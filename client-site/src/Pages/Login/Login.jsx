@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa6';
 import loginImg from '../../assets/images/login/login.svg';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Login = () => {
     const { singIn } = UseAuth();
@@ -26,9 +27,14 @@ const Login = () => {
 
         singIn(email, password)
             .then(result => {
-                const user = result.user;
-                navigate(location?.state ? location.state : '/');
+                const loggedInUser = result.user;
+                const user = { email };
+                // navigate(location?.state ? location.state : '/');
                 toast.success('Congrs! Login Sucessfull');
+                axios.post('http://localhost:5000/jwt', user, { withCredentials: true })
+                    .then(res => {
+                        console.log(res.data);
+                    })
             })
             .catch(error => {
                 const errorText = error.message;

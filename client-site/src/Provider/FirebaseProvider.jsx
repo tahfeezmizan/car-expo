@@ -19,17 +19,20 @@ const FirebaseProvider = ({ children }) => {
         return signInWithEmailAndPassword(auth, email, password);
     }
 
-    const singOut = (auth) => {
+    const singOutUser = () => {
         setUser(null)
-        signOut(auth);
+        return signOut(auth);
     }
 
 
     useEffect(() => {
         const unseviscribe = onAuthStateChanged(auth, currentUser => {
-            setUser(currentUser);
             console.log('current user', currentUser);
-            setIsLoading(false)
+            if (currentUser) {
+                setUser(currentUser);
+                setIsLoading(false)
+            }
+            // setIsLoading(false)
         })
         return () => {
             return unseviscribe();
@@ -41,7 +44,7 @@ const FirebaseProvider = ({ children }) => {
         isLoading,
         createUser,
         singIn,
-        singOut
+        singOutUser
     }
 
     return (
