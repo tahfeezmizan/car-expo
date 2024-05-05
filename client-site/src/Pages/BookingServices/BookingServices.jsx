@@ -15,6 +15,7 @@ const BookingServices = () => {
             })
     }, []);
 
+    // bookings item delete 
     const handleDelete = (id) => {
         const proceed = confirm('Are you Sure?');
 
@@ -33,6 +34,27 @@ const BookingServices = () => {
                     }
                 })
         }
+    }
+
+
+    const handleApprove = id => {
+        fetch(`http://localhost:5000/bookings/${id}`, {
+            method: 'PATCH',
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify({ status: "Confirm" })
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                if (data.modifiedCount > 0) {
+                    alert('Documnet update');
+                    const remaning = item.filter(data => data._id !== id);
+                    const updated = item.find(data => data._id !== id);
+                    updated.status = "confirm";
+                    const newUpdate = [updated, ...remaning];
+                    setItem(newUpdate)
+                }
+            })
     }
 
     return (
@@ -60,7 +82,10 @@ const BookingServices = () => {
                                     <td>{data.service_price}</td>
                                     <td>{data.date}</td>
                                     <td>
-                                        <button className="btn">Pending</button>
+                                        {
+                                            data.status === 'Confirm' ? <span className="font-bold text-green-500">Confirm</span> :
+                                                <button onClick={() => handleApprove(data._id)} className="btn">Confirm</button>
+                                        }
                                     </td>
                                 </tr>
                             </tbody>

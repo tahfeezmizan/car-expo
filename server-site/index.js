@@ -89,6 +89,22 @@ async function run() {
     })
 
 
+    //update
+    app.patch('/bookings/:id', async (req, res) => {
+      const id = req.params.id;
+      const filter = { _id: new ObjectId(id) }
+      const updateBookings = req.body;
+      console.log(updateBookings);
+      const updateDoc = {
+        $set: {
+          status: updateBookings.status
+        }
+      };
+      const result = await bookingsCollection.updateOne(filter, updateDoc);
+      res.send(result)
+    })
+
+
     // delete
     app.delete('/bookings/:id', async (req, res) => {
       const id = req.params.id;
