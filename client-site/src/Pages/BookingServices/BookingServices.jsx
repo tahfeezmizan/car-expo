@@ -16,6 +16,24 @@ const BookingServices = () => {
             })
     }, []);
 
+    const handleDelete = (id) => {
+        const proceed = confirm('Are you Sure?');
+
+        if (proceed) {
+            console.log(id);
+            fetch(`http://localhost:5000/bookings/${id}`, {
+                method: 'DELETE',
+                headers: {"content-type": "application/json"},
+                body: JSON.stringify(id)
+            })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+            })
+        }
+    }
+
+
     return (
         <div className="w-full md:w-8/12 mx-auto rounded-3xl py-20">
             <div className="overflow-x-auto">
@@ -33,7 +51,9 @@ const BookingServices = () => {
                         item.map(data => <>
                             <tbody>
                                 <tr>
-                                    <th><RxCross2 /></th>
+                                    <th>
+                                        <button className="btn rounded-full" onClick={() => handleDelete(data._id)}><RxCross2 /></button>
+                                    </th>
                                     <th><img className="w-32 " src={data.img} alt="" /></th>
                                     <td>{data.service}</td>
                                     <td>{data.service_price}</td>
