@@ -20,8 +20,8 @@ const FirebaseProvider = ({ children }) => {
     }
 
     const singOut = (auth) => {
-        setIsLoading(false);
-        return signOut(auth);
+        setUser(null)
+        signOut(auth);
     }
 
 

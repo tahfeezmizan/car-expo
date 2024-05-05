@@ -10,8 +10,11 @@ const Navbar = () => {
     const links = <>
         <li><NavLink to='/'>Home</NavLink></li>
         {user ?
-            <li><NavLink to='/bookings'>My Bookings</NavLink></li>
-            : '/login'
+            <>
+                <li><NavLink to='/bookings'>Book Services</NavLink></li>
+                <li><NavLink to='/bookings'>My Bookings</NavLink></li>
+            </>
+            : ''
         }
     </>
 

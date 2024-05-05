@@ -11,6 +11,7 @@ const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate()
     const location = useLocation();
+    console.log(location);
 
     const {
         register,

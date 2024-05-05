@@ -93,15 +93,15 @@ const Register = () => {
                                             className="w-4/5"
                                             {...register("password", {
                                                 required: "Password is required",
-                                                minLength: {
-                                                    value: 6,
-                                                    message: "Password must have at least 6 characters"
-                                                },
-                                                validate: {
-                                                    hasUppercase: value => /[A-Z]/.test(value) || "Password must contain at least one uppercase letter",
-                                                    hasLowercase: value => /[a-z]/.test(value) || "Password must contain at least one lowercase letter",
-                                                    hasNumber: value => /[0-9]/.test(value) || "Password must have at least 1 Number"
-                                                }
+                                                // ((minLength: {
+                                                //     value: 6,
+                                                //     message: "Password must have at least 6 characters"
+                                                // },
+                                                // validate: {
+                                                //     hasUppercase: value => /[A-Z]/.test(value) || "Password must contain at least one uppercase letter",
+                                                //     hasLowercase: value => /[a-z]/.test(value) || "Password must contain at least one lowercase letter",
+                                                //     hasNumber: value => /[0-9]/.test(value) || "Password must have at least 1 Number"
+                                                // }))
                                             })}
                                         />
                                         <button
