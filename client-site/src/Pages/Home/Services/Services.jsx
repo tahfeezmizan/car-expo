@@ -10,7 +10,7 @@ const Services = () => {
             .then(data => {
                 setService(data);
             })
-    }, [])
+    }, []);
 
     return (
         <div className="bg-gray-50">

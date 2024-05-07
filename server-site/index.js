@@ -34,7 +34,7 @@ const logger = async (req, res, next) => {
 
 const verifyToken = async (req, res, next) => {
   const token = req.cookies?.token;
-  console.log('Verify Token', token);
+  // console.log('Verify Token', token);
   if (!token) {
     return res.status(401).send({ message: "unauthorized" });
   }
@@ -45,9 +45,9 @@ const verifyToken = async (req, res, next) => {
       console.log('verify token error:', err);
       return res.status(401).send({ message: "unauthorized" })
     }
-
     //decoded
     console.log('decoded Token value:', decoded);
+    req.user = decoded;
     next()
   })
 }
@@ -101,6 +101,7 @@ async function run() {
     //bookings desplay by email
     app.get('/bookings', logger, verifyToken, async (req, res) => {
       // console.log('TOOO token cookies:', req.cookies.token);
+      console.log("user valide token", req.user);
       let query = {};
       if (req.query?.email) {
         query = { email: req.query.email }
@@ -122,7 +123,7 @@ async function run() {
       const id = req.params.id;
       const filter = { _id: new ObjectId(id) }
       const updateBookings = req.body;
-      console.log(updateBookings);
+      // console.log(updateBookings);
       const updateDoc = {
         $set: {
           status: updateBookings.status

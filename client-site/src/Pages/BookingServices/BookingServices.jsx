@@ -1,6 +1,7 @@
 import { useEffect, useReducer, useState } from "react";
 import UseAuth from "../../Hook/UseAuth";
 import { RxCross2 } from "react-icons/rx";
+import axios from "axios";
 
 const BookingServices = () => {
     const { user } = UseAuth();
@@ -8,10 +9,9 @@ const BookingServices = () => {
 
     const url = `http://localhost:5000/bookings?email=${user?.email}`
     useEffect(() => {
-        fetch(url)
-            .then(res => res.json())
-            .then(data => {
-                setItem(data);
+        axios.get(url, { withCredentials: true })
+            .then(res => {
+                setItem(res.data)
             })
     }, []);
 
@@ -49,10 +49,10 @@ const BookingServices = () => {
                 if (data.modifiedCount > 0) {
                     alert('Documnet update');
                     const remaning = item.filter(data => data._id !== id);
-                    const updated = item.find(data => data._id !== id);
-                    updated.status = "confirm";
+                    const updated = item.find(data => data._id === id);
+                    updated.status = "Confirm";
                     const newUpdate = [updated, ...remaning];
-                    setItem(newUpdate)
+                    setItem(newUpdate);
                 }
             })
     }
