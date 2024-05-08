@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 import ServicesCard from "./ServicesCard";
+import UseAxiosSecure from "../../../Hook/UseAxiosSecure";
 
 const Services = () => {
     const [service, setService] = useState([]);
+    const axiosSecure = UseAxiosSecure();
 
     useEffect(() => {
-        fetch('http://localhost:5000/services')
+        const url = 'http://localhost:5000'
+        fetch(`${url}/services`)
             .then(res => res.json())
             .then(data => {
                 setService(data);
