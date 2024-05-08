@@ -27,16 +27,24 @@ const FirebaseProvider = ({ children }) => {
 
     useEffect(() => {
         const unseviscribe = onAuthStateChanged(auth, currentUser => {
+            const userEmial = currentUser?.email || user?.email;
+            const loggedUser = { email: userEmial }
+
             console.log('current user', currentUser);
-            setUser(currentUser);
             setIsLoading(false);
+            setUser(currentUser);
 
             //if user exist then issue a token
             if (currentUser) {
-                const loggedUser = { email: currentUser.email }
                 axios.post('http://localhost:5000/jwt', loggedUser, { withCredentials: true })
                     .then(res => {
                         console.log('token respons', res.data);
+                    })
+            }
+            else {
+                axios.post('http://localhost:5000/logout', loggedUser, { withCredentials: true })
+                    .then(res => {
+                        console.log('user logout data ', res.data);
                     })
             }
         })
