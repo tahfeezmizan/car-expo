@@ -29,7 +29,8 @@ const Login = () => {
                 const loggedInUser = result.user;
                 const user = { email };
                 toast.success('Congrs! Login Sucessfull');
-
+                // navigate(location?.state ? location.state : '/');
+                
                 axios.post('http://localhost:5000/jwt', user, { withCredentials: true })
                     .then(res => {
                         console.log(res.data);
