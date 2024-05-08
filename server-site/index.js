@@ -32,21 +32,39 @@ const logger = async (req, res, next) => {
   next()
 }
 
+// const verifyToken = async (req, res, next) => {
+//   const token = req.cookies?.token;
+//   // console.log('Verify Token', token);
+//   if (!token) {
+//     return res.status(401).send({ message: "unauthorized" });
+//   }
+
+//   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
+//     //error
+//     if (err) {
+//       console.log('verify token error:', err);
+//       return res.status(401).send({ message: "unauthorized" })
+//     }
+//     //decoded
+//     console.log('decoded Token value:', decoded);
+//     req.user = decoded;
+//     next()
+//   })
+// }
+
 const verifyToken = async (req, res, next) => {
   const token = req.cookies?.token;
-  // console.log('Verify Token', token);
   if (!token) {
-    return res.status(401).send({ message: "unauthorized" });
+    res.status(401).send({ message: "UnAuthorized Token" });
   }
 
   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
-    //error
+    // error
     if (err) {
-      console.log('verify token error:', err);
-      return res.status(401).send({ message: "unauthorized" })
+      return res.status(401).send({ message: "UnAuthorized Token" })
     }
-    //decoded
-    console.log('decoded Token value:', decoded);
+
+    //decode
     req.user = decoded;
     next()
   })
@@ -64,7 +82,7 @@ async function run() {
     //auth releted api
     app.post('/jwt', logger, async (req, res) => {
       const user = req.body;
-      const token = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '2h' });
+      const token = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '10m' });
       console.log(user);
       res
         .cookie('token', token, {
@@ -102,7 +120,12 @@ async function run() {
     app.get('/bookings', logger, verifyToken, async (req, res) => {
       // console.log('TOOO token cookies:', req.cookies.token);
       console.log("user valide token", req.user);
+      if (req.query.email !== req.user.email) {
+        return res.status(403).send({ message: "Forbidden Access" })
+      }
+
       let query = {};
+
       if (req.query?.email) {
         query = { email: req.query.email }
       }
