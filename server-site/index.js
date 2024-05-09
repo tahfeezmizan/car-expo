@@ -5,7 +5,7 @@ require('dotenv').config();
 const jwt = require("jsonwebtoken");
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const app = express();
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 4000;
 
 app.use(cors({
   origin: [
@@ -96,9 +96,20 @@ async function run() {
 
     // get services all data 
     app.get('/services', logger, async (req, res) => {
-      const cursor = serviceCollection.find();
-      const result = await cursor.toArray();
-      res.send(result)
+      try {
+        const result = await serviceCollection.find().toArray();
+        res.status(200).json({
+          sucess: true,
+          message: "Services Data Fetch Sucessfully",
+          data: result,
+        })
+      } catch (error) {
+        res.send(5000).json({
+          sucess: false,
+          message: "Services Data Not Found!",
+          error,
+        })
+      }
     })
 
 
