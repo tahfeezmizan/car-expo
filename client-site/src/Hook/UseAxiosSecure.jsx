@@ -2,9 +2,10 @@ import axios from "axios";
 import UseAuth from "./UseAuth";
 import { useNavigate } from "react-router-dom";
 import { apiURL } from "../constant";
+import { useEffect } from "react";
 
 const axiosSecure = axios.create({
-    baseURL: apiURL,
+    baseURL: import.meta.env.apiURL,
     withCredentials: true
 })
 
@@ -12,19 +13,19 @@ const UseAxiosSecure = () => {
     const { singOutUser } = UseAuth();
     const navigate = useNavigate()
 
-    axiosSecure.interceptors.response.use(res => {
-        return res;
-    }, error => {
-        console.log("error track in the interceptors", error.response);
-        if (error.response.status === 401 || error.response.status === 403) {
-            // console.log('LogOut Users');
-            singOutUser()
-                .then(() => {
-                    navigate('/login')
-                })
-                .catch(error => alert(error));
-        }
-    })
+    useEffect(() => {
+        axiosSecure.interceptors.response.use(res => {
+            return res;
+        },
+            (error) => {
+                if (error.response.status === 401 || error.response.status === 403) {
+                    singOutUser()
+                    navigate('/login');
+                }
+            }
+        )
+
+    }, [])
 
     return axiosSecure
 };

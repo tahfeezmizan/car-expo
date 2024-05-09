@@ -50,7 +50,7 @@ const verifyToken = async (req, res, next) => {
     }
 
     //decode
-    req.user = decoded;
+    req.decoded = decoded;
     next()
   })
 }
@@ -140,19 +140,23 @@ async function run() {
       }
     })
 
+    // send code this email 
+    // ismailjosim99@gmail.com
+
     // booking
     //bookings desplay by email
-    app.get('/bookings', logger, verifyToken, async (req, res) => {
+    app.get('/bookings', verifyToken, async (req, res) => {
       // Who is logged in and who is get data
-      if (req.user?.email !== req.query?.email) {
-        return res.status(403).send({ message: "Forbidden Access" })
+      const email = req.query.email
+      if (!email) {
+        res.send([])
       }
-
-      let query = {};
-
-      if (req.query?.email) {
-        query = { email: req.query.email }
+      const decodedEmail = req.decoded.email
+      if (email !== decodedEmail) {
+        res.status(403).send({ message: 'Forbidden Access' })
       }
+      const query = { email: email }
+
       const cursor = bookingsCollection.find(query);
       const result = await cursor.toArray();
       res.send(result)
