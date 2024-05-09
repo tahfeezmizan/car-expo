@@ -7,7 +7,7 @@ const Services = () => {
     const axiosSecure = UseAxiosSecure();
 
     useEffect(() => {
-        const url = 'http://localhost:5000'
+        const url = 'https://y-mauve-eight.vercel.app'
         fetch(`${url}/services`)
             .then(res => res.json())
             .then(data => {

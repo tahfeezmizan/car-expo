@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
-import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import registerImg from '../../assets/images/login/login.svg';
 import UseAuth from "../../Hook/UseAuth";
+import { useForm } from "react-hook-form";
+import { Link, useNavigate } from "react-router-dom";
+import { FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
+import registerImg from '../../assets/images/login/login.svg';
 
 // userProfileUpdate(name, photoURL)
 //                     .then(() => {
@@ -14,7 +14,7 @@ import UseAuth from "../../Hook/UseAuth";
 //                     })
 
 const Register = () => {
-    const {createUser} = UseAuth();
+    const { createUser } = UseAuth();
     const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
 
@@ -26,12 +26,12 @@ const Register = () => {
 
     const onSubmit = (data) => {
         const { name, email, password, } = data;
-        console.log(data)
+        // console.log(data)
 
         createUser(email, password)
             .then(result => {
                 const newUser = result?.user;
-                console.log(newUser);
+                // console.log(newUser);
             })
             .catch(error => {
                 const errorMessage = error.message;

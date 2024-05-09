@@ -9,7 +9,7 @@ const CheckOut = () => {
 
 
     useEffect(() => {
-        fetch(`http://localhost:5000/services/${id}`)
+        fetch(`https://y-mauve-eight.vercel.app/services/${id}`)
             .then(res => res.json())
             .then(result => {
                 setData(result);
@@ -48,7 +48,7 @@ const CheckOut = () => {
         })
         .then(res => res.json())
         .then(data => {
-            console.log(data);
+            // console.log(data);
         })
     }
 

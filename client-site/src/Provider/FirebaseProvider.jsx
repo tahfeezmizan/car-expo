@@ -36,15 +36,15 @@ const FirebaseProvider = ({ children }) => {
 
             //if user exist then issue a token
             if (currentUser) {
-                axios.post('http://localhost:5000/jwt', loggedUser, { withCredentials: true })
+                axios.post('https://y-mauve-eight.vercel.app/jwt', loggedUser, { withCredentials: true })
                     .then(res => {
-                        console.log('token respons', res.data);
+                        // console.log('token respons', res.data);
                     })
             }
             else {
-                axios.post('http://localhost:5000/logout', loggedUser, { withCredentials: true })
+                axios.post('https://y-mauve-eight.vercel.app/logout', loggedUser, { withCredentials: true })
                     .then(res => {
-                        console.log('user logout data ', res.data);
+                        // console.log('user logout data ', res.data);
                     })
             }
         })

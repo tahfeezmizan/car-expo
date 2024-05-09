@@ -27,13 +27,13 @@ const BookingServices = () => {
         const proceed = confirm('Are you Sure?');
 
         if (proceed) {
-            console.log(id);
-            fetch(`http://localhost:5000/bookings/${id}`, {
+            // console.log(id);
+            fetch(`https://y-mauve-eight.vercel.app/bookings/${id}`, {
                 method: 'DELETE',
             })
                 .then(res => res.json())
                 .then(data => {
-                    console.log(data);
+                    // console.log(data);
                     if (data.deletedCount > 0) {
                         alert('deleted sucessfully');
                         const remaning = item.filter(data => data._id !== id);
@@ -45,14 +45,14 @@ const BookingServices = () => {
 
 
     const handleApprove = id => {
-        fetch(`http://localhost:5000/bookings/${id}`, {
+        fetch(`https://y-mauve-eight.vercel.app/bookings/${id}`, {
             method: 'PATCH',
             headers: { "content-type": "application/json" },
             body: JSON.stringify({ status: "Confirm" })
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data);
+                // console.log(data);
                 if (data.modifiedCount > 0) {
                     alert('Documnet update');
                     const remaning = item.filter(data => data._id !== id);
