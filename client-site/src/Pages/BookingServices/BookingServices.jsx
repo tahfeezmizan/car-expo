@@ -1,7 +1,6 @@
-import { useEffect, useReducer, useState } from "react";
-import UseAuth from "../../Hook/UseAuth";
+import { useEffect, useState } from "react";
 import { RxCross2 } from "react-icons/rx";
-import axios from "axios";
+import UseAuth from "../../Hook/UseAuth";
 import UseAxiosSecure from "../../Hook/UseAxiosSecure";
 
 const BookingServices = () => {
@@ -9,14 +8,8 @@ const BookingServices = () => {
     const [item, setItem] = useState([]);
     const axiosSecure = UseAxiosSecure();
 
-    const url = `/bookings?email=${user?.email}`
     useEffect(() => {
-        // axios.get(url, { withCredentials: true })
-        //     .then(res => {
-        //         setItem(res.data)
-        //     })
-
-        axiosSecure.get(url)
+        axiosSecure.get(`/bookings?email=${user?.email}`)
             .then(res => {
                 setItem(res.data)
             })

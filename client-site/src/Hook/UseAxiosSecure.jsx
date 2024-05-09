@@ -1,9 +1,10 @@
 import axios from "axios";
 import UseAuth from "./UseAuth";
 import { useNavigate } from "react-router-dom";
+import { apiURL } from "../constant";
 
 const axiosSecure = axios.create({
-    baseURL: 'https://y-mauve-eight.vercel.app',
+    baseURL: apiURL,
     withCredentials: true
 })
 

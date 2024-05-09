@@ -1,17 +1,18 @@
 import { useEffect, useState } from "react";
 import ServicesCard from "./ServicesCard";
 import UseAxiosSecure from "../../../Hook/UseAxiosSecure";
+import { apiURL } from "../../../constant";
 
 const Services = () => {
     const [service, setService] = useState([]);
     const axiosSecure = UseAxiosSecure();
+    console.log(service);
 
     useEffect(() => {
-        const url = 'https://y-mauve-eight.vercel.app'
-        fetch(`${url}/services`)
-            .then(res => res.json())
-            .then(data => {
-                setService(data);
+        axiosSecure.get('/services')
+            .then(res => {
+                setService(res.data.data)
+                console.log(res.data);
             })
     }, []);
 
@@ -25,7 +26,7 @@ const Services = () => {
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {
-                        service.map(services => <ServicesCard
+                        service?.map(services => <ServicesCard
                             data={services}
                             key={services._id}
                         ></ServicesCard>)

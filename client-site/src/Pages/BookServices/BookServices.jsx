@@ -1,18 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import UseAuth from '../../Hook/UseAuth';
 import { useParams } from 'react-router-dom';
+import UseAxiosSecure from '../../Hook/UseAxiosSecure';
 
 const BookServices = () => {
     const { user } = UseAuth();
     const [data, setData] = useState([]);
     const { id } = useParams();
+    const axiosSecure = UseAxiosSecure();
+
+    console.log('Services Booking Data', data);
 
     useEffect(() => {
-        fetch(`https://y-mauve-eight.vercel.app/services/${id}`)
-            .then(res => res.json())
-            .then(result => {
-                setData(result);
-            })
+        // fetch(`https://y-mauve-eight.vercel.app/services/${id}`)
+        //     .then(res => res.json())
+        //     .then(result => {
+        //         setData(result);
+        //     })
+        axiosSecure.get(`/services/${id}`)
+        .then(res => {
+            setData(res.data.data)
+        })
     }, [id]);
 
     const { _id, title, price, img } = data;
@@ -40,16 +48,16 @@ const BookServices = () => {
 
         fetch('https://y-mauve-eight.vercel.app/bookings', {
             method: "POST",
-            headers: { "content-type": "application/json"},
+            headers: { "content-type": "application/json" },
             body: JSON.stringify(order)
         })
-        .then(res => res.json())
-        .then(data => {
-            if(data?.insertedId) {
-                alert('order conform')
-                form.reset()
-            }
-        })
+            .then(res => res.json())
+            .then(data => {
+                if (data?.insertedId) {
+                    alert('order conform')
+                    form.reset()
+                }
+            })
     }
 
     return (

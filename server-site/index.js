@@ -115,13 +115,29 @@ async function run() {
 
     // get service specifc data using id
     app.get('/services/:id', async (req, res) => {
-      const id = req.params.id;
-      const query = { _id: new ObjectId(id) };
-      const options = {
-        projection: { title: 1, price: 1, service_id: 1 }
+      try {
+        const id = req.params.id;
+        const query = { _id: new ObjectId(id) };
+        const options = {
+          projection: { title: 1, price: 1, service_id: 1 }
+        }
+        const result = await serviceCollection.findOne(query, options);
+        res.status(200).json({
+          sucess: true,
+          message: "Specific service fetch sucessfully!",
+          data: result,
+        })
+
+      } catch (error) {
+        res.status(500).json({
+          sucess: false,
+          message: "Service not found!",
+          error: {
+            code: 404,
+            message: error.lenght > 0 ? error : "Somting went wrong"
+          }
+        })
       }
-      const result = await serviceCollection.findOne(query, options);
-      res.send(result)
     })
 
     // booking
