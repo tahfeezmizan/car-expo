@@ -100,13 +100,14 @@ async function run() {
         const filter = req.query;
         console.log(filter);
 
-        const query = {        }
+        const query = {
+          title: { $regex: filter.search, $options: 'i' }
+        }
 
         const options = {
           sort: {
             price: filter.sort === 'asc' ? 1 : -1,
           }
-
         }
 
         const result = await serviceCollection.find(query, options).toArray();
@@ -116,7 +117,7 @@ async function run() {
           data: result,
         })
       } catch (error) {
-        res.send(5000).json({
+        res.send(401).json({
           sucess: false,
           message: "Services Data Not Found!",
           error,

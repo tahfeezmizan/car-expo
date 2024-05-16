@@ -4,17 +4,25 @@ import ServicesCard from "./ServicesCard";
 
 const Services = () => {
     const [service, setService] = useState([]);
-    const [asc, setAsc] = useState(true)
+    const [asc, setAsc] = useState(true);
+    const [search, setSearch] = useState('')
     const axiosSecure = UseAxiosSecure();
     console.log(service);
 
     useEffect(() => {
-        axiosSecure.get(`/services?sort=${asc ? 'asc' : "des"}`)
+        axiosSecure.get(`/services?sort=${asc ? 'asc' : "des"}&search=${search}`)
             .then(res => {
                 setService(res.data.data)
                 console.log(res.data);
             })
-    }, [asc]);
+    }, [asc, search]);
+
+    const handleSearch = e => {
+        e.preventDefault();
+        const searchText = e.target.name.value;
+        console.log(searchText);
+        setSearch(searchText)
+    }
 
     return (
         <div className="bg-gray-50">
@@ -25,10 +33,16 @@ const Services = () => {
                     <p className="text-gray-400 pb-12 w-1/2 mx-auto">the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. </p>
 
                     <button
-                        onClick={ () => {setAsc(!asc)}}
+                        onClick={() => { setAsc(!asc) }}
                         className="btn bg-red-500 text-white">
                         {asc ? 'Price High to Low' : "Price Low to High"}
                     </button>
+
+                    <form onSubmit={handleSearch}>
+                        <input type="text" name="name" className="input input-bordered w-full max-w-xs"
+                        placeholder="serach product" id="" />
+                        <input type="submit" className="btn" value="Find" />
+                    </form>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {
