@@ -10,8 +10,8 @@ const port = process.env.PORT || 4000;
 app.use(cors({
   origin: [
     'http://localhost:5173',
-    'https://carexpo-ec700.web.app',
-    'https://carexpo-ec700.firebaseapp.com'
+    // 'https://carexpo-ec700.web.app',
+    // 'https://carexpo-ec700.firebaseapp.com'
   ],
   credentials: true
 }));
@@ -40,7 +40,7 @@ const verifyToken = async (req, res, next) => {
   const token = req.cookies?.token;
   console.log('middle ware token: ', token);
   if (!token) {
-    res.status(401).send({ message: "UnAuthorized Token" });
+    return res.status(401).send({ message: "UnAuthorized Token" });
   }
 
   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
@@ -97,7 +97,19 @@ async function run() {
     // get services all data 
     app.get('/services', logger, async (req, res) => {
       try {
-        const result = await serviceCollection.find().toArray();
+        const filter = req.query;
+        console.log(filter);
+
+        const query = {        }
+
+        const options = {
+          sort: {
+            price: filter.sort === 'asc' ? 1 : -1,
+          }
+
+        }
+
+        const result = await serviceCollection.find(query, options).toArray();
         res.status(200).json({
           sucess: true,
           message: "Services Data Fetch Sucessfully",
