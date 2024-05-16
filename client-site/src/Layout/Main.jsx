@@ -4,6 +4,7 @@ import Navbar from "../Pages/Shared/Navbar/Navbar";
 
 const Main = () => {
     const navigation = useNavigation();
+
     return (
         <div>
             <Navbar></Navbar>

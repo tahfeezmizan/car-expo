@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { RxCross2 } from "react-icons/rx";
 import UseAuth from "../../Hook/UseAuth";
 import UseAxiosSecure from "../../Hook/UseAxiosSecure";
+import { apiURL } from "../../constant";
 
 const BookingServices = () => {
     const { user } = UseAuth();
@@ -21,7 +22,7 @@ const BookingServices = () => {
 
         if (proceed) {
             // console.log(id);
-            fetch(`https://y-mauve-eight.vercel.app/bookings/${id}`, {
+            fetch(`${apiURL}/bookings/${id}`, {
                 method: 'DELETE',
             })
                 .then(res => res.json())
@@ -38,7 +39,7 @@ const BookingServices = () => {
 
 
     const handleApprove = id => {
-        fetch(`https://y-mauve-eight.vercel.app/bookings/${id}`, {
+        fetch(`${apiURL}/bookings/${id}`, {
             method: 'PATCH',
             headers: { "content-type": "application/json" },
             body: JSON.stringify({ status: "Confirm" })
@@ -71,7 +72,7 @@ const BookingServices = () => {
                         </tr>
                     </thead>
                     {
-                        item.map(data => <>
+                        item?.map(data => <>
                             <tbody>
                                 <tr>
                                     <th>
@@ -92,6 +93,7 @@ const BookingServices = () => {
                         </>)
                     }
                 </table>
+    
             </div>
         </div>
     );

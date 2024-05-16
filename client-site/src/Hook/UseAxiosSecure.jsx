@@ -1,11 +1,10 @@
 import axios from "axios";
-import UseAuth from "./UseAuth";
-import { useNavigate } from "react-router-dom";
-import { apiURL } from "../constant";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import UseAuth from "./UseAuth";
 
 const axiosSecure = axios.create({
-    baseURL: import.meta.env.apiURL,
+    baseURL: import.meta.env.VITE_API_URL,
     withCredentials: true
 })
 
@@ -14,20 +13,19 @@ const UseAxiosSecure = () => {
     const navigate = useNavigate()
 
     useEffect(() => {
-        axiosSecure.interceptors.response.use(res => {
-            return res;
-        },
-            (error) => {
-                if (error.response.status === 401 || error.response.status === 403) {
-                    singOutUser()
+        axiosSecure.interceptors.response.use(
+            res => res,
+            error => {
+                if (error.response && (error.response.status === 401 || error.response.status === 403)) {
+                    singOutUser();
                     navigate('/login');
                 }
+                return Promise.reject(error);
             }
-        )
+        );
+    }, []);
 
-    }, [])
-
-    return axiosSecure
+    return axiosSecure;
 };
 
 export default UseAxiosSecure;
